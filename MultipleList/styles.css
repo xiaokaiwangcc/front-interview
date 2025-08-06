@@ -1,0 +1,294 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+h1 {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.search-panel {
+    padding: 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-group label {
+    font-weight: 500;
+    color: #495057;
+    white-space: nowrap;
+}
+
+.search-group input {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 180px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#clearSearch {
+    background: #6c757d;
+    color: white;
+}
+
+#clearSearch:hover {
+    background: #5a6268;
+    transform: translateY(-1px);
+}
+
+#generateData {
+    background: #28a745;
+    color: white;
+}
+
+#generateData:hover {
+    background: #218838;
+    transform: translateY(-1px);
+}
+
+.render-controls {
+    padding: 15px 20px;
+    background: #e9ecef;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.render-controls label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.render-controls input[type="radio"] {
+    margin: 0;
+}
+
+.render-controls span {
+    color: #6c757d;
+    font-size: 14px;
+    margin-left: auto;
+}
+
+.table-container {
+    position: relative;
+    height: 600px;
+    overflow: hidden;
+    background: white;
+}
+
+.canvas-container,
+.svg-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#tableCanvas {
+    display: block;
+    cursor: default;
+}
+
+#tableSvg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.scrollbar-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.vertical-scrollbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 100%;
+    background: rgba(0,0,0,0.05);
+    pointer-events: auto;
+}
+
+.horizontal-scrollbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 12px;
+    height: 12px;
+    background: rgba(0,0,0,0.05);
+    pointer-events: auto;
+}
+
+.scrollbar-thumb {
+    position: absolute;
+    background: rgba(0,0,0,0.3);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.scrollbar-thumb:hover {
+    background: rgba(0,0,0,0.5);
+}
+
+.vertical-scrollbar .scrollbar-thumb {
+    width: 8px;
+    left: 2px;
+    min-height: 20px;
+}
+
+.horizontal-scrollbar .scrollbar-thumb {
+    height: 8px;
+    top: 2px;
+    min-width: 20px;
+}
+
+.status-info {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* 表格样式 */
+.table-header {
+    background: #495057;
+    color: white;
+    font-weight: 600;
+}
+
+.table-row {
+    border-bottom: 1px solid #e9ecef;
+}
+
+.table-row:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.table-row:hover {
+    background: #e3f2fd;
+}
+
+.table-cell {
+    padding: 8px 12px;
+    border-right: 1px solid #e9ecef;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .search-panel {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-group input {
+        width: 100%;
+    }
+    
+    .render-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    
+    .status-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* 加载动画 */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 18px;
+    color: #6c757d;
+}
+
+.loading::after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e9ecef;
+    border-top: 2px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
