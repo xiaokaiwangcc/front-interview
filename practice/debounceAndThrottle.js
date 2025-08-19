@@ -8,43 +8,47 @@ const debounce = (func, wait) => {
     }
 }
 
-// 测试用例
-const testFunc = (a, b) => {
-    console.log(a, b)
+const testFunc = (time) => {
+    console.log('执行时间:', time);
 }
+
 // const debouncedTestFunc = debounce(testFunc, 1000)
-// debouncedTestFunc(1, 2)
-// debouncedTestFunc(3, 4)
+// debouncedTestFunc(1)
+// debouncedTestFunc(3)
 
 
 function throttle(func, wait) {
     let isThrottle = false;
-    let lastArgs; // 存储最后一次触发的参数
-    let timeout;  // 声明定时器变量
+    let lastArgs = null;  // 保存最后一次的参数
+    let timeout;
 
     return function(...args) {
-        // 记录最后一次的参数
-        lastArgs = args;
+        lastArgs = args;  // 总是更新为最新的参数
 
         if (!isThrottle) {
             // 立即执行一次
-            func.apply(this, lastArgs);
+            func.apply(this, args);
             isThrottle = true;
 
-            // 间隔结束后，重置状态，并检查是否有未执行的参数
+            // 间隔结束后，重置状态，并执行最后一次的参数
             timeout = setTimeout(() => {
                 isThrottle = false;
-                // 如果在间隔内有新触发，执行最后一次的参数
-                if (lastArgs) {
+                if (lastArgs !== null) {
                     func.apply(this, lastArgs);
-                    lastArgs = null; // 清空参数，避免重复执行
+                    lastArgs = null;
                 }
             }, wait);
         }
     };
 }
-const throttledTestFunc = throttle(testFunc, 50)
 
-throttledTestFunc(1, 2)
-throttledTestFunc(3, 4)
-throttledTestFunc(5, 6)
+const throttledTestFunc = throttle(testFunc, 1000);
+
+const testThrottleFunc = () => {
+    setInterval(() => {
+        let time = new Date().toLocaleTimeString();
+        throttledTestFunc(time);
+    }, 100);
+}
+
+testThrottleFunc();
